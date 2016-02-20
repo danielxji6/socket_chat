@@ -1,7 +1,7 @@
 // require express and other modules
 var express = require('express');
 var app = express();
-var http = require ('http').Server(app);
+var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
@@ -28,10 +28,13 @@ app.get('/', function (req, res) {
 
 io.on('connection', function(socket) {
   console.log('a user up');
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
 });
 
 
 // listen on port 3000
-app.listen(3000, function() {
+http.listen(3000, function() {
   console.log('server started, port:3000');
 });
